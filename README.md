@@ -1,4 +1,4 @@
-# Pranto Shield — ISO/IEC 27001:2022 Compliance Register
+# Pranto's GRC — ISO/IEC 27001:2022 Compliance Register
 
 A single-page, dependency-light dashboard for tracking an ISO/IEC 27001:2022 gap
 assessment: import a workbook, and every chart, table, and report rebuilds

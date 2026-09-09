@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pranto's GRC — ISO/IEC 27001:2022 Compliance Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <div class="brand-text">
+        <div class="brand-name">Pranto's GRC</div>
+        <div class="brand-sub">ISO/IEC 27001:2022 Register</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-group-label">Overview</div>
+      <button class="nav-item active" data-view="dashboard">
+        <span class="nav-glyph">01</span> Compliance Register
+      </button>
+      <button class="nav-item" data-view="upload">
+        <span class="nav-glyph">02</span> Import Workbook
+      </button>
+
+      <div class="nav-group-label">Assessment</div>
+      <button class="nav-item" data-view="clauses">
+        <span class="nav-glyph">03</span> Clauses 4–10
+      </button>
+      <button class="nav-item" data-view="annex">
+        <span class="nav-glyph">04</span> Annex A Themes
+      </button>
+      <button class="nav-item" data-view="explorer">
+        <span class="nav-glyph">05</span> Control Explorer
+      </button>
+      <button class="nav-item" data-view="gaps">
+        <span class="nav-glyph">06</span> Gap Analysis
+      </button>
+      <button class="nav-item" data-view="roadmap">
+        <span class="nav-glyph">07</span> Remediation Roadmap
+      </button>
+
+      <div class="nav-group-label">Delivery</div>
+      <button class="nav-item" data-view="history">
+        <span class="nav-glyph">08</span> History &amp; Trend
+      </button>
+      <button class="nav-item" data-view="report">
+        <span class="nav-glyph">09</span> Executive Report
+      </button>
+      <button class="nav-item" data-view="settings">
+        <span class="nav-glyph">10</span> Settings
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="author-chip">
+        <div class="author-avatar">P</div>
+        <div>
+          <div class="author-name">M R Pranto</div>
+          <div class="author-role">CyberSecurity Consultant </div>
+          <div class="author-role"> Email: mprantox41@gmail.com </div>
+        </div>
+      </div>
+      <div class="version-tag">Pranto's GRC · v1.0 · Protofolio build</div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <header class="topbar">
+      <div class="crumb"><span id="crumbView">Compliance Register</span></div>
+      <div class="topbar-actions">
+        <span class="dataset-pill" id="datasetPill">Sample dataset · 123 controls</span>
+        <button class="btn btn-ghost" id="themeToggleTop" title="Toggle theme">◐</button>
+      </div>
+    </header>
+
+    <div class="view-scroll">
+
+      <!-- ---------- DASHBOARD ---------- -->
+      <section class="view" id="view-dashboard">
+        <div class="view-head">
+          <h1>ISO/IEC 27001:2022 compliance register</h1>
+          <p class="view-sub">Import a completed gap-assessment workbook and every figure below rebuilds instantly — locally, in your browser.</p>
+          <button class="btn btn-primary" data-goto="upload">Import Workbook →</button>
+        </div>
+
+        <div class="kpi-row" id="kpiRow"></div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Annex A — theme coverage</h3>
+              <span class="panel-note">Weighted compliance · 4 themes</span>
+            </div>
+            <div id="radarChart" class="chart-slot"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Status distribution</h3>
+              <span class="panel-note" id="statusTotalNote">— controls</span>
+            </div>
+            <div id="donutChart" class="chart-slot"></div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Mandatory clauses (4–10)</h3>
+              <span class="panel-note">Weighted compliance by clause</span>
+            </div>
+            <div id="clauseBars" class="bars-slot"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Annex A themes</h3>
+              <span class="panel-note">Weighted compliance by theme</span>
+            </div>
+            <div id="themeBars" class="bars-slot"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Compliance matrix</h3>
+            <span class="panel-note">Every control, grouped by section — hover for detail</span>
+          </div>
+          <div id="matrixGrid" class="matrix-grid"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Controls needing attention</h3>
+            <span class="panel-note">Non-compliant &amp; partially-compliant items</span>
+          </div>
+          <div class="table-wrap">
+            <table class="ledger-table" id="attentionTable">
+              <thead><tr><th>Ref</th><th>Section</th><th>Requirement</th><th>Status</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- UPLOAD ---------- -->
+      <section class="view hidden" id="view-upload">
+        <div class="view-head">
+          <h1>Import workbook</h1>
+          <p class="view-sub">Import your ISO 27001 gap-assessment file (.xlsx / .xls / .csv). Pranto Shield detects the requirements sheet, validates it, and rebuilds every view — nothing leaves your browser.</p>
+        </div>
+
+        <div class="dropzone" id="dropzone">
+          <div class="dropzone-glyph">⇪</div>
+          <div class="dropzone-title">Drop your ISO 27001 workbook here</div>
+          <div class="dropzone-sub">or click to browse — one file, fully automated</div>
+          <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden />
+        </div>
+
+        <div class="upload-actions">
+          <button class="btn btn-secondary" id="loadSampleBtn">Load sample assessment</button>
+          <button class="btn btn-ghost" id="clearDataBtn">Clear data</button>
+          <a class="btn btn-ghost" id="downloadTemplateBtn" href="sample-data/iso27001-sample-assessment.csv" download>Download sample CSV</a>
+        </div>
+
+        <div class="panel" id="parseLogPanel" style="display:none;">
+          <div class="panel-head"><h3>Parse log</h3></div>
+          <div id="parseLog" class="parse-log"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Expected structure</h3></div>
+          <p class="muted">Pranto Shield matches headers flexibly (case &amp; spacing insensitive):</p>
+          <ul class="spec-list">
+            <li><strong>Category</strong> — Mandatory Clauses / Annex A Controls</li>
+            <li><strong>Section</strong> — e.g. "4 - Context of the organization", "A.5 - Organizational controls"</li>
+            <li><strong>Standard Ref</strong> — clause or control number</li>
+            <li><strong>Assessment Question</strong> — the requirement text</li>
+            <li><strong>Compliance</strong> — Fully / Partially / Not Compliant / Not Applicable</li>
+            <li><strong>Notes, Owner, Priority</strong> — optional, shown in control detail if present</li>
+          </ul>
+          <p class="muted">On import, Pranto Shield checks for duplicate references, blank requirements, and unrecognised compliance values, and reports them in the parse log above.</p>
+        </div>
+      </section>
+
+      <!-- ---------- CLAUSES ---------- -->
+      <section class="view hidden" id="view-clauses">
+        <div class="view-head">
+          <h1>Mandatory clauses (4–10)</h1>
+          <p class="view-sub">ISMS management-system requirements — context, leadership, planning, support, operation, performance evaluation, improvement.</p>
+        </div>
+        <div id="clausesDetail"></div>
+      </section>
+
+      <!-- ---------- ANNEX ---------- -->
+      <section class="view hidden" id="view-annex">
+        <div class="view-head">
+          <h1>Annex A themes</h1>
+          <p class="view-sub">Organizational, People, Physical, and Technological controls, grouped per ISO/IEC 27001:2022 Annex A.</p>
+        </div>
+        <div id="annexDetail"></div>
+      </section>
+
+      <!-- ---------- EXPLORER ---------- -->
+      <section class="view hidden" id="view-explorer">
+        <div class="view-head">
+          <h1>Control explorer</h1>
+          <p class="view-sub">Search and filter every clause and Annex A control in the assessment.</p>
+        </div>
+
+        <div class="explorer-toolbar">
+          <input type="text" id="explorerSearch" class="input" placeholder="Search ref or requirement…" />
+          <select id="explorerCategory" class="select"><option value="">All categories</option></select>
+          <select id="explorerSection" class="select"><option value="">All sections</option></select>
+          <select id="explorerStatus" class="select">
+            <option value="">All statuses</option>
+            <option>Fully Compliant</option>
+            <option>Partially Compliant</option>
+            <option>Not Compliant</option>
+            <option>Not Applicable</option>
+            <option>Not Assessed</option>
+          </select>
+          <button class="btn btn-ghost" id="explorerExportBtn">Export CSV</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="ledger-table" id="explorerTable">
+            <thead><tr><th>Ref</th><th>Section</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="explorer-count" id="explorerCount"></div>
+      </section>
+
+      <!-- ---------- GAPS ---------- -->
+      <section class="view hidden" id="view-gaps">
+        <div class="view-head">
+          <h1>Gap analysis</h1>
+          <p class="view-sub">Automated, rule-based analysis of weak areas and outstanding gaps — a starting point for your audit narrative, not a substitute for assessor judgment.</p>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Summary</h3><span class="panel-note">Auto-generated from your data</span></div>
+          <div id="gapSummary" class="gap-summary"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Key findings</h3><span class="panel-note">Weakest sections and outstanding items</span></div>
+          <div id="gapFindings" class="gap-findings"></div>
+        </div>
+
+        <p class="footnote">Insights are generated from simple compliance-rate rules on the loaded data — this demo does not call an external AI/LLM service.</p>
+      </section>
+
+      <!-- ---------- ROADMAP ---------- -->
+      <section class="view hidden" id="view-roadmap">
+        <div class="view-head">
+          <h1>Remediation roadmap</h1>
+          <p class="view-sub">Every open gap and partial control, scored by risk and tracked through to resolution. Saved locally in this browser — nothing here comes from the workbook.</p>
+        </div>
+
+        <div class="roadmap-legend">
+          <span class="risk-badge risk-low">Low risk</span>
+          <span class="risk-badge risk-medium">Medium risk</span>
+          <span class="risk-badge risk-high">High risk</span>
+          <span class="risk-badge risk-critical">Critical risk</span>
+          <span class="muted" style="margin-left:auto;">Risk = likelihood × impact, set per item below</span>
+        </div>
+
+        <div class="kanban" id="kanbanBoard">
+          <div class="kanban-col" data-status="Backlog">
+            <div class="kanban-col-head">Backlog <span id="countBacklog"></span></div>
+            <div class="kanban-cards" id="colBacklog"></div>
+          </div>
+          <div class="kanban-col" data-status="In Progress">
+            <div class="kanban-col-head">In progress <span id="countInProgress"></span></div>
+            <div class="kanban-cards" id="colInProgress"></div>
+          </div>
+          <div class="kanban-col" data-status="Resolved">
+            <div class="kanban-col-head">Resolved <span id="countResolved"></span></div>
+            <div class="kanban-cards" id="colResolved"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- HISTORY ---------- -->
+      <section class="view hidden" id="view-history">
+        <div class="view-head">
+          <h1>History &amp; trend</h1>
+          <p class="view-sub">Save a snapshot of the current assessment to track compliance over time — across audits, re-assessments, or remediation cycles. Stored locally in this browser.</p>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Save a snapshot</h3></div>
+          <div class="snapshot-form">
+            <input type="text" id="snapshotLabel" class="input" placeholder="Label this snapshot (e.g. 'Q3 internal audit')" />
+            <button class="btn btn-primary" id="saveSnapshotBtn">Save current as snapshot</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Compliance trend</h3>
+            <span class="panel-note">Overall weighted compliance over time</span>
+          </div>
+          <div id="trendChart" class="chart-slot"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Snapshot history</h3></div>
+          <div class="table-wrap">
+            <table class="ledger-table" id="snapshotTable">
+              <thead><tr><th>Date</th><th>Label</th><th>Controls</th><th>Compliance</th><th>Change</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- REPORT ---------- -->
+      <section class="view hidden" id="view-report">
+        <div class="view-head no-print">
+          <h1>Executive report</h1>
+          <p class="view-sub">A print-ready summary suitable for management review and audit preparation.</p>
+          <button class="btn btn-primary" id="printReportBtn">Print / Save as PDF</button>
+        </div>
+
+        <div class="report-sheet" id="reportSheet">
+          <div class="report-header">
+            <div>
+              <h2>ISO/IEC 27001:2022 — Executive compliance summary</h2>
+              <div class="report-meta" id="reportMeta"></div>
+            </div>
+            <div class="report-brand">Pranto Shield</div>
+          </div>
+
+          <div class="report-kpis" id="reportKpis"></div>
+
+          <h3>Compliance by section</h3>
+          <table class="ledger-table report-table" id="reportTable">
+            <thead><tr><th>Section</th><th>Category</th><th>Total</th><th>Compliant</th><th>Partial</th><th>Not Compliant</th><th>Compliance %</th></tr></thead>
+            <tbody></tbody>
+          </table>
+
+          <div class="report-footer">Confidential — for internal governance use · Generated by Pranto Shield</div>
+        </div>
+      </section>
+
+      <!-- ---------- SETTINGS ---------- -->
+      <section class="view hidden" id="view-settings">
+        <div class="view-head">
+          <h1>Settings</h1>
+          <p class="view-sub">Platform preferences and scope notes.</p>
+        </div>
+
+        <div class="panel settings-row">
+          <div>
+            <h3>Appearance</h3>
+            <p class="muted">Switch between light and dark theme.</p>
+          </div>
+          <button class="btn btn-secondary" id="themeToggleSettings">Toggle theme</button>
+        </div>
+
+        <div class="panel settings-row">
+          <div>
+            <h3>Active framework</h3>
+            <p class="muted">ISO/IEC 27001:2022 — Clauses 4–10 &amp; Annex A</p>
+          </div>
+          <span class="badge">ISO 27001:2022</span>
+        </div>
+
+        <div class="panel settings-row">
+          <div>
+            <h3>Data storage</h3>
+            <p class="muted">All parsing and processing happens locally in your browser. Roadmap and snapshot history persist in this browser's local storage — no file is ever uploaded to a server.</p>
+          </div>
+        </div>
+
+        <div class="panel settings-row">
+          <div>
+            <h3>Backup &amp; restore</h3>
+            <p class="muted">Export the current dataset, remediation roadmap, and snapshot history as one JSON file — or restore from a previous export.</p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-secondary" id="exportBackupBtn">Export backup</button>
+            <button class="btn btn-ghost" id="importBackupBtn">Restore backup</button>
+            <input type="file" id="importBackupInput" accept="application/json" hidden />
+          </div>
+        </div>
+
+        <div class="panel settings-row">
+          <div>
+            <h3>Reset local data</h3>
+            <p class="muted">Clears the saved roadmap and snapshot history from this browser. The loaded dataset is not affected.</p>
+          </div>
+          <button class="btn btn-ghost" id="resetLocalBtn">Reset roadmap &amp; history</button>
+        </div>
+
+        <div class="panel settings-row">
+          <div>
+            <h3>About this build</h3>
+            <p class="muted">Pranto Shield is a portfolio project inspired by GRC compliance dashboards — built with plain HTML, CSS and JavaScript, no framework or backend.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

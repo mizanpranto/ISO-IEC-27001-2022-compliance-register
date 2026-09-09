@@ -7,6 +7,11 @@ instantly, entirely in the browser.
 Built as a portfolio piece with **plain HTML, CSS, and JavaScript** — no build
 step, no framework, no backend.
 
+Click on the live demo : https://mizanpranto.github.io/ISO-IEC-27001-2022-compliance-register/
+
+Check the demo & you are welcome to do any contribute. 
+
+
 ![Pranto Shield dashboard](assets/screenshot-dashboard.png)
 ![Remediation roadmap](assets/screenshot-roadmap.png)
 ![History & trend](assets/screenshot-history.png)
